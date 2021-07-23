@@ -15,6 +15,10 @@ export const theme = extendTheme({
       "50": "#F0EDF2"
     }
   },
+  fonts: {
+    heading: 'Nunito',
+    body: 'Nunito'
+  },
   styles: {
     global: {
       body: {
