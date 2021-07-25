@@ -1,6 +1,17 @@
-import { Box, Icon, Link, Stack, Text } from "@chakra-ui/react";
-import { FaAddressCard, FaFileAlt, FaKeyboard, FaShareAltSquare, FaThLarge, FaWpforms } from 'react-icons/fa'
-import { RiContactsLine } from 'react-icons/ri'
+import {
+  Box,
+  Icon,
+  Link,
+  Stack,
+  Text
+} from "@chakra-ui/react"
+
+import {
+  FaAddressCard,
+  FaFileAlt,
+  FaShareAltSquare,
+  FaThLarge
+} from 'react-icons/fa'
 
 export function Sidebar() {
   return (

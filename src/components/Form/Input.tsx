@@ -3,7 +3,7 @@ import {
   FormLabel,
   Input as ChakraInput,
   InputProps as ChakraInputProps
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
 interface InputProps extends ChakraInputProps {
   name: string

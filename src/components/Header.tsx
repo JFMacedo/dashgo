@@ -1,5 +1,18 @@
-import { Flex, Icon, Input, HStack, Text, Box, Avatar } from "@chakra-ui/react";
-import { FaSearch, FaBell, FaUserPlus } from 'react-icons/fa'
+import {
+  Avatar,
+  Box,
+  Flex,
+  Icon,
+  Input,
+  HStack,
+  Text
+} from "@chakra-ui/react"
+
+import {
+  FaSearch,
+  FaBell,
+  FaUserPlus
+} from 'react-icons/fa'
 
 export function Header() {
   return (
