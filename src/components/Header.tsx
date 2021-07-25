@@ -96,6 +96,7 @@ export function Header() {
           </Box>
           <Avatar
             size='md'
+            backgroundColor='green.500'
             name='Jean Fernandes de Macedo'
             src='https://github.com/JFMacedo.png'
           />
