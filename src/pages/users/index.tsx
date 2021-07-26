@@ -53,7 +53,7 @@ export default function UserList() {
           >
             <Heading
               size='lg'
-              fontWeight='normal'
+              fontWeight='400'
             >
               Usuários
             </Heading>
