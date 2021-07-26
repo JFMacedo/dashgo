@@ -108,6 +108,7 @@ export default function Dashboard() {
             padding='8'
             borderRadius='8px'
             backgroundColor='gray.800'
+            boxShadow="md"
           >
             <Text
               marginBottom='4'
@@ -126,6 +127,7 @@ export default function Dashboard() {
             padding='8'
             borderRadius='8px'
             backgroundColor='gray.800'
+            boxShadow="md"
           >
             <Text
               marginBottom='4'

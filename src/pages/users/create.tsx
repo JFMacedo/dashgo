@@ -38,6 +38,7 @@ export default function CreateUser() {
           padding='8'
           borderRadius='8px'
           backgroundColor='gray.800'
+          boxShadow="md"
         >
           <Heading
             size='lg'

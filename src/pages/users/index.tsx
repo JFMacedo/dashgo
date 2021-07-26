@@ -45,6 +45,7 @@ export default function UserList() {
           padding='8'
           borderRadius='8px'
           backgroundColor='gray.800'
+          boxShadow="md"
         >
           <Flex
             alignItems='center'
