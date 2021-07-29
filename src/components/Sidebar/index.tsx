@@ -1,22 +1,51 @@
-import { Box, Stack } from "@chakra-ui/react"
-import { FaAddressCard, FaFileAlt, FaShareAltSquare, FaThLarge } from "react-icons/fa"
+import {
+  Box,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  useBreakpointValue
+} from "@chakra-ui/react"
 
-import { NavLink } from "./NavLink"
-import { NavSection } from "./NavSection"
+import { useSidebarDrawer } from "../../contexts/SidebarDrawerContext"
+
+import { SidebarNav } from "./SidebarNav"
 
 export function Sidebar() {
+  const { isOpen, onClose } = useSidebarDrawer()
+
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false
+  })
+
+  if(isDrawerSidebar) {
+    return (
+      <Drawer isOpen={ isOpen } placement="left" onClose={ onClose }>
+        <DrawerOverlay>
+          <DrawerContent backgroundColor="gray.800">
+            <DrawerCloseButton
+              marginTop="6px"
+              _focus={ {
+                outlineColor: "green.500",
+                outlineWidth: "1px"
+              } }
+            />
+            <DrawerHeader>Navegação</DrawerHeader>
+            <DrawerBody>
+              <SidebarNav />
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
+    )
+  }
+
   return (
     <Box as="aside" width="64" marginRight="8">
-      <Stack spacing="12" alignItems="flex-start">
-        <NavSection title="GERAL">
-          <NavLink icon={ FaThLarge }>Dashboard</NavLink>
-          <NavLink icon={ FaAddressCard }>Usuários</NavLink>
-        </NavSection>
-        <NavSection title="AUTOMAÇÃO">
-          <NavLink icon={ FaFileAlt }>Formulários</NavLink>
-          <NavLink icon={ FaShareAltSquare }>Automação</NavLink>
-        </NavSection>
-      </Stack>
+      <SidebarNav />
     </Box>
   )
 }
