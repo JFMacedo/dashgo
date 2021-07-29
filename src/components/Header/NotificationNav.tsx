@@ -4,9 +4,9 @@ import { FaBell, FaUserPlus } from "react-icons/fa"
 export function NotificationNav() {
   return (
     <HStack
-      spacing="8"
-      marginX="8"
-      paddingRight="8"
+      spacing={ ["6", "8"] }
+      marginX={ ["6", "8"] }
+      paddingRight={ ["6", "8"] }
       paddingY="1"
       borderRightWidth="1px"
       borderColor="gray.700"
