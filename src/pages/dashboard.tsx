@@ -90,7 +90,7 @@ export default function Dashboard() {
             boxShadow="md"
           >
             <Text marginBottom="4" fontSize="lg">
-              Taxade abertura
+              Taxa de abertura
               <Chart
                 type="area"
                 height="160px"
