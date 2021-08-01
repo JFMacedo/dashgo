@@ -15,6 +15,8 @@ import {
   useBreakpointValue
 } from "@chakra-ui/react"
 
+import Link from "next/link"
+
 import { FaPencilAlt, FaPlusCircle } from "react-icons/fa"
 
 import { Header } from "../../components/Header"
@@ -53,15 +55,17 @@ export default function UserList() {
             <Heading size="lg" fontWeight="400">
               Usuários
             </Heading>
-            <Button
-              as="a"
-              size="sm"
-              fontSize="sm"
-              colorScheme="green"
-              leftIcon={ <Icon as={ FaPlusCircle } /> }
-            >
-              Criar novo
-            </Button>
+            <Link href="/users/create" passHref>
+              <Button
+                as="a"
+                size="sm"
+                fontSize="sm"
+                colorScheme="green"
+                leftIcon={ <Icon as={ FaPlusCircle } /> }
+              >
+                Criar novo
+              </Button>
+            </Link>
           </Flex>
           <Table colorScheme="whiteAlpha">
             <Thead>
