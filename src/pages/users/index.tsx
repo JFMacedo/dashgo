@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react"
 
 import Link from "next/link"
-import { useEffect } from "react"
 import { useQuery } from "react-query"
 
 import { FaPencilAlt, FaPlusCircle } from "react-icons/fa"
@@ -29,8 +28,20 @@ import { Sidebar } from "../../components/Sidebar"
 export default function UserList() {
   const { data, isLoading, error } = useQuery("users", async () => {
     const response = await fetch("http://localhost:3000/api/users")
-    const data = response.json()
-    return data
+    const data = await response.json()
+    const users = data.users.map(user => {
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        })
+      }
+    })
+    return users
   })
 
   const isWideVersion = useBreakpointValue({
@@ -98,81 +109,35 @@ export default function UserList() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td  paddingX={ ["4", "4", "6"] }>
-                      <Checkbox colorScheme="green" />
-                    </Td>
-                    <Td>
-                      <Box>
-                        <Text fontWeight="bold">Jéssica Lais Cuaglio</Text>
-                        <Text fontSize="sm" color="gray.300">
-                          jessica_lcuaglio@hotmail.com
-                        </Text>
-                      </Box>
-                    </Td>
-                    { isWideVersion && <Td>13 de Maio, 2021</Td> }
-                    <Td>
-                      { isWideVersion && (<Button
-                        as="a"
-                        size="sm"
-                        fontSize="sm"
-                        colorScheme="purple"
-                        leftIcon={ <Icon as={ FaPencilAlt } /> }
-                      >
-                        Editar
-                      </Button>)}
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td  paddingX={ ["4", "4", "6"] }>
-                      <Checkbox colorScheme="green" />
-                    </Td>
-                    <Td>
-                      <Box>
-                        <Text fontWeight="bold">Carlos Henrique dos Santos</Text>
-                        <Text fontSize="sm" color="gray.300">
-                          carlos.caulin@gmail.com
-                        </Text>
-                      </Box>
-                    </Td>
-                    { isWideVersion && <Td>10 de Julho, 2021</Td> }
-                    <Td>
-                      { isWideVersion && (<Button
-                        as="a"
-                        size="sm"
-                        fontSize="sm"
-                        colorScheme="purple"
-                        leftIcon={ <Icon as={ FaPencilAlt } /> }
-                      >
-                        Editar
-                      </Button>)}
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td  paddingX={ ["4", "4", "6"] }>
-                      <Checkbox colorScheme="green" />
-                    </Td>
-                    <Td>
-                      <Box>
-                        <Text fontWeight="bold">Jean Fernandes de Macedo</Text>
-                        <Text fontSize="sm" color="gray.300">
-                          jfmacedo91@gmail.com
-                        </Text>
-                      </Box>
-                    </Td>
-                    { isWideVersion && <Td>26 de Julho, 2021</Td> }
-                    <Td>
-                      { isWideVersion && (<Button
-                        as="a"
-                        size="sm"
-                        fontSize="sm"
-                        colorScheme="purple"
-                        leftIcon={ <Icon as={ FaPencilAlt } /> }
-                      >
-                        Editar
-                      </Button>)}
-                    </Td>
-                  </Tr>
+                  { data.map(user => {
+                    return (
+                      <Tr key={ user.id }>
+                        <Td  paddingX={ ["4", "4", "6"] }>
+                          <Checkbox colorScheme="green" />
+                        </Td>
+                        <Td>
+                          <Box>
+                            <Text fontWeight="bold">{ user.name }</Text>
+                            <Text fontSize="sm" color="gray.300">
+                              { user.email }
+                            </Text>
+                          </Box>
+                        </Td>
+                        { isWideVersion && <Td>{ user.createdAt }</Td> }
+                        <Td>
+                          { isWideVersion && (<Button
+                            as="a"
+                            size="sm"
+                            fontSize="sm"
+                            colorScheme="purple"
+                            leftIcon={ <Icon as={ FaPencilAlt } /> }
+                          >
+                            Editar
+                          </Button>)}
+                        </Td>
+                      </Tr>
+                    )
+                  }) }
                 </Tbody>
               </Table>
               <Pagination />
