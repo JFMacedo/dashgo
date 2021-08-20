@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   Icon,
+  Spinner,
   Table,
   Tbody,
   Td,
@@ -17,6 +18,7 @@ import {
 
 import Link from "next/link"
 import { useEffect } from "react"
+import { useQuery } from "react-query"
 
 import { FaPencilAlt, FaPlusCircle } from "react-icons/fa"
 
@@ -25,16 +27,16 @@ import { Pagination } from "../../components/Pagination"
 import { Sidebar } from "../../components/Sidebar"
 
 export default function UserList() {
+  const { data, isLoading, error } = useQuery("users", async () => {
+    const response = await fetch("http://localhost:3000/api/users")
+    const data = response.json()
+    return data
+  })
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true
   })
-
-  useEffect(() => {
-    fetch("http://localhost:3000/api/users")
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }, [])
 
   return (
     <Box>
@@ -74,96 +76,108 @@ export default function UserList() {
               </Button>
             </Link>
           </Flex>
-          <Table colorScheme="whiteAlpha">
-            <Thead>
-              <Tr>
-                <Th width="8" paddingX={ ["4", "4", "6"] } color="gray.300">
-                  <Checkbox colorScheme="green" />
-                </Th>
-                <Th>Usuário</Th>
-                { isWideVersion && <Th>Data de cadastro</Th> }
-                { isWideVersion && <Th width="8">Editar</Th> }
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td  paddingX={ ["4", "4", "6"] }>
-                  <Checkbox colorScheme="green" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Jéssica Lais Cuaglio</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      jessica_lcuaglio@hotmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                { isWideVersion && <Td>13 de Maio, 2021</Td> }
-                <Td>
-                  { isWideVersion && (<Button
-                    as="a"
-                    size="sm"
-                    fontSize="sm"
-                    colorScheme="purple"
-                    leftIcon={ <Icon as={ FaPencilAlt } /> }
-                  >
-                    Editar
-                  </Button>)}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td  paddingX={ ["4", "4", "6"] }>
-                  <Checkbox colorScheme="green" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Carlos Henrique dos Santos</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      carlos.caulin@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                { isWideVersion && <Td>10 de Julho, 2021</Td> }
-                <Td>
-                  { isWideVersion && (<Button
-                    as="a"
-                    size="sm"
-                    fontSize="sm"
-                    colorScheme="purple"
-                    leftIcon={ <Icon as={ FaPencilAlt } /> }
-                  >
-                    Editar
-                  </Button>)}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td  paddingX={ ["4", "4", "6"] }>
-                  <Checkbox colorScheme="green" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Jean Fernandes de Macedo</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      jfmacedo91@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                { isWideVersion && <Td>26 de Julho, 2021</Td> }
-                <Td>
-                  { isWideVersion && (<Button
-                    as="a"
-                    size="sm"
-                    fontSize="sm"
-                    colorScheme="purple"
-                    leftIcon={ <Icon as={ FaPencilAlt } /> }
-                  >
-                    Editar
-                  </Button>)}
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
-          <Pagination />
+          { isLoading ? (
+            <Flex justify="center">
+              <Spinner />
+            </Flex>
+          ) : error ? (
+            <Flex justify="ceenter">
+              <Text>Falaha ao obter os dados dos usuários</Text>
+            </Flex>
+          ) : (
+            <>
+              <Table colorScheme="whiteAlpha">
+                <Thead>
+                  <Tr>
+                    <Th width="8" paddingX={ ["4", "4", "6"] } color="gray.300">
+                      <Checkbox colorScheme="green" />
+                    </Th>
+                    <Th>Usuário</Th>
+                    { isWideVersion && <Th>Data de cadastro</Th> }
+                    { isWideVersion && <Th width="8">Editar</Th> }
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td  paddingX={ ["4", "4", "6"] }>
+                      <Checkbox colorScheme="green" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Jéssica Lais Cuaglio</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          jessica_lcuaglio@hotmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    { isWideVersion && <Td>13 de Maio, 2021</Td> }
+                    <Td>
+                      { isWideVersion && (<Button
+                        as="a"
+                        size="sm"
+                        fontSize="sm"
+                        colorScheme="purple"
+                        leftIcon={ <Icon as={ FaPencilAlt } /> }
+                      >
+                        Editar
+                      </Button>)}
+                    </Td>
+                  </Tr>
+                  <Tr>
+                    <Td  paddingX={ ["4", "4", "6"] }>
+                      <Checkbox colorScheme="green" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Carlos Henrique dos Santos</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          carlos.caulin@gmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    { isWideVersion && <Td>10 de Julho, 2021</Td> }
+                    <Td>
+                      { isWideVersion && (<Button
+                        as="a"
+                        size="sm"
+                        fontSize="sm"
+                        colorScheme="purple"
+                        leftIcon={ <Icon as={ FaPencilAlt } /> }
+                      >
+                        Editar
+                      </Button>)}
+                    </Td>
+                  </Tr>
+                  <Tr>
+                    <Td  paddingX={ ["4", "4", "6"] }>
+                      <Checkbox colorScheme="green" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Jean Fernandes de Macedo</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          jfmacedo91@gmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    { isWideVersion && <Td>26 de Julho, 2021</Td> }
+                    <Td>
+                      { isWideVersion && (<Button
+                        as="a"
+                        size="sm"
+                        fontSize="sm"
+                        colorScheme="purple"
+                        leftIcon={ <Icon as={ FaPencilAlt } /> }
+                      >
+                        Editar
+                      </Button>)}
+                    </Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+              <Pagination />
+            </>
+          )}
         </Box>
       </Flex>
     </Box>
